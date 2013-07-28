@@ -1,0 +1,305 @@
+<html>
+   <head>
+      <title>Box2dWeb Demo</title>
+
+<script  src="../lib/base.js"></script>
+
+<script  src="../lib/Common/b2Settings.js"></script>
+<script  src="../lib/Common/b2Mat22.js"></script>
+<script  src="../lib/Common/b2Mat33.js"></script>
+<script  src="../lib/Common/b2Math.js"></script>
+<script  src="../lib/Common/b2Sweep.js"></script>
+<script  src="../lib/Common/b2Transform.js"></script>
+<script  src="../lib/Common/b2Vec2.js"></script>
+<script  src="../lib/Common/b2Vec3.js"></script>
+<script  src="../lib/Common/b2Color.js"></script>
+
+<script  src="../lib/Collision/b2AABB.js"></script>
+<script  src="../lib/Collision/b2Bound.js"></script>
+<script  src="../lib/Collision/b2BoundValues.js"></script>
+<script  src="../lib/Collision/b2Collision.js"></script>
+<script  src="../lib/Collision/b2ContactID.js"></script>
+<script  src="../lib/Collision/b2ContactPoint.js"></script>
+<script  src="../lib/Collision/b2Distance.js"></script>
+<script  src="../lib/Collision/b2DistanceInput.js"></script>
+<script  src="../lib/Collision/b2DistanceOutput.js"></script>
+<script  src="../lib/Collision/b2DistanceProxy.js"></script>
+<script  src="../lib/Collision/b2DynamicTree.js"></script>
+<script  src="../lib/Collision/b2DynamicTreeBroadPhase.js"></script>
+<script  src="../lib/Collision/b2DynamicTreeNode.js"></script>
+<script  src="../lib/Collision/b2DynamicTreePair.js"></script>
+<script  src="../lib/Collision/b2Manifold.js"></script>
+<script  src="../lib/Collision/b2ManifoldPoint.js"></script>
+<script  src="../lib/Collision/b2Point.js"></script>
+<script  src="../lib/Collision/b2RayCastInput.js"></script>
+<script  src="../lib/Collision/b2RayCastOutput.js"></script>
+<script  src="../lib/Collision/b2Segment.js"></script>
+<script  src="../lib/Collision/b2SeparationFunction.js"></script>
+<script  src="../lib/Collision/b2Simplex.js"></script>
+<script  src="../lib/Collision/b2SimplexCache.js"></script>
+<script  src="../lib/Collision/b2SimplexVertex.js"></script>
+<script  src="../lib/Collision/b2TimeOfImpact.js"></script>
+<script  src="../lib/Collision/b2TOIInput.js"></script>
+<script  src="../lib/Collision/b2WorldManifold.js"></script>
+
+<script  src="../lib/Collision/Shape/b2Shape.js"></script>
+<script  src="../lib/Collision/Shape/b2CircleShape.js"></script>
+<script  src="../lib/Collision/Shape/b2EdgeChainDef.js"></script>
+<script  src="../lib/Collision/Shape/b2EdgeShape.js"></script>
+<script  src="../lib/Collision/Shape/b2MassData.js"></script>
+<script  src="../lib/Collision/Shape/b2PolygonShape.js"></script>
+
+<script  src="../lib/Dynamics/b2Body.js"></script>
+<script  src="../lib/Dynamics/b2BodyDef.js"></script>
+<script  src="../lib/Dynamics/b2ContactFilter.js"></script>
+<script  src="../lib/Dynamics/b2ContactImpulse.js"></script>
+<script  src="../lib/Dynamics/b2ContactListener.js"></script>
+<script  src="../lib/Dynamics/b2ContactManager.js"></script>
+<script  src="../lib/Dynamics/b2DebugDraw.js"></script>
+<script  src="../lib/Dynamics/b2DebugDraw-1.js"></script>
+<script  src="../lib/Dynamics/b2DestructionListener.js"></script>
+<script  src="../lib/Dynamics/b2FilterData.js"></script>
+<script  src="../lib/Dynamics/b2Fixture.js"></script>
+<script  src="../lib/Dynamics/b2FixtureDef.js"></script>
+<script  src="../lib/Dynamics/b2Island.js"></script>
+<script  src="../lib/Dynamics/b2TimeStep.js"></script>
+<script  src="../lib/Dynamics/b2World.js"></script>
+
+<script  src="../lib/Dynamics/Contact/b2Contact.js"></script>
+<script  src="../lib/Dynamics/Contact/b2CircleContact.js"></script>
+<script  src="../lib/Dynamics/Contact/b2ContactConstraint.js"></script>
+<script  src="../lib/Dynamics/Contact/b2ContactConstraintPoint.js"></script>
+<script  src="../lib/Dynamics/Contact/b2ContactEdge.js"></script>
+<script  src="../lib/Dynamics/Contact/b2ContactFactory.js"></script>
+<script  src="../lib/Dynamics/Contact/b2ContactRegister.js"></script>
+<script  src="../lib/Dynamics/Contact/b2ContactResult.js"></script>
+<script  src="../lib/Dynamics/Contact/b2ContactSolver.js"></script>
+<script  src="../lib/Dynamics/Contact/b2EdgeAndCircleContact.js"></script>
+<script  src="../lib/Dynamics/Contact/b2NullContact.js"></script>
+<script  src="../lib/Dynamics/Contact/b2PolyAndCircleContact.js"></script>
+<script  src="../lib/Dynamics/Contact/b2PolyAndEdgeContact.js"></script>
+<script  src="../lib/Dynamics/Contact/b2PolygonContact.js"></script>
+<script  src="../lib/Dynamics/Contact/b2PositionSolverManifold.js"></script>
+
+<script  src="../lib/Dynamics/Controller/b2Controller.js"></script>
+<script  src="../lib/Dynamics/Controller/b2BuoyancyController.js"></script>
+<script  src="../lib/Dynamics/Controller/b2ConstantAccelController.js"></script>
+<script  src="../lib/Dynamics/Controller/b2ConstantForceController.js"></script>
+<script  src="../lib/Dynamics/Controller/b2ControllerEdge.js"></script>
+<script  src="../lib/Dynamics/Controller/b2GravityController.js"></script>
+<script  src="../lib/Dynamics/Controller/b2TensorDampingController.js"></script>
+
+<script  src="../lib/Dynamics/Joints/b2Joint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2JointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2DistanceJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2DistanceJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2FrictionJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2FrictionJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2GearJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2GearJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2Jacobian.js"></script>
+<script  src="../lib/Dynamics/Joints/b2JointEdge.js"></script>
+<script  src="../lib/Dynamics/Joints/b2LineJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2LineJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2MouseJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2MouseJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2PrismaticJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2PrismaticJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2PulleyJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2PulleyJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2RevoluteJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2RevoluteJointDef.js"></script>
+<script  src="../lib/Dynamics/Joints/b2WeldJoint.js"></script>
+<script  src="../lib/Dynamics/Joints/b2WeldJointDef.js"></script>
+
+<script  src="../lib/init.js"></script>
+
+
+
+   </head>
+   <body onload="init();">
+      <canvas id="canvas" width="600" height="400" style="background-color:#333333;" ></canvas>
+
+
+   <script type="text/javascript">
+      
+      function init() {
+         var   b2Vec2 = Box2D.Common.Math.b2Vec2
+            ,  b2AABB = Box2D.Collision.b2AABB
+         	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
+         	,	b2Body = Box2D.Dynamics.b2Body
+         	,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+         	,	b2Fixture = Box2D.Dynamics.b2Fixture
+         	,	b2World = Box2D.Dynamics.b2World
+         	,	b2MassData = Box2D.Collision.Shapes.b2MassData
+         	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
+         	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+         	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+            ,  b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
+            ;
+         
+         var world = new b2World(
+               new b2Vec2(0, 10)    //gravity
+            ,  true                 //allow sleep
+         );
+         
+         var fixDef = new b2FixtureDef;
+         fixDef.density = 1.0;
+         fixDef.friction = 0.5;
+         fixDef.restitution = 0.2;
+         
+         var bodyDef = new b2BodyDef;
+         
+         //create ground
+         bodyDef.type = b2Body.b2_staticBody;
+         fixDef.shape = new b2PolygonShape;
+         fixDef.shape.SetAsBox(20, 2);
+         bodyDef.position.Set(10, 400 / 30 + 1.8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+         bodyDef.position.Set(10, -1.8);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+         fixDef.shape.SetAsBox(2, 14);
+         bodyDef.position.Set(-1.8, 13);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+         bodyDef.position.Set(21.8, 13);
+         world.CreateBody(bodyDef).CreateFixture(fixDef);
+         
+         
+         //create some objects
+         bodyDef.type = b2Body.b2_dynamicBody;
+         for(var i = 0; i < 10; ++i) {
+            if(Math.random() > 0.5) {
+               fixDef.shape = new b2PolygonShape;
+               fixDef.shape.SetAsBox(
+                     Math.random() + 0.1 //half width
+                  ,  Math.random() + 0.1 //half height
+               );
+            } else {
+               fixDef.shape = new b2CircleShape(
+                  Math.random() + 0.1 //radius
+               );
+            }
+            bodyDef.position.x = Math.random() * 10;
+            bodyDef.position.y = Math.random() * 10;
+            world.CreateBody(bodyDef).CreateFixture(fixDef);
+         }
+         
+         //setup debug draw
+         var debugDraw = new b2DebugDraw();
+			debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+			debugDraw.SetDrawScale(30.0);
+			debugDraw.SetFillAlpha(0.5);
+			debugDraw.SetLineThickness(1.0);
+			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+			world.SetDebugDraw(debugDraw);
+         
+         window.setInterval(update, 1000 / 60);
+         
+         //mouse
+         
+         var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
+         var canvasPosition = getElementPosition(document.getElementById("canvas"));
+         
+         document.addEventListener("mousedown", function(e) {
+            isMouseDown = true;
+            handleMouseMove(e);
+            document.addEventListener("mousemove", handleMouseMove, true);
+         }, true);
+         
+         document.addEventListener("mouseup", function() {
+            document.removeEventListener("mousemove", handleMouseMove, true);
+            isMouseDown = false;
+            mouseX = undefined;
+            mouseY = undefined;
+         }, true);
+         
+         function handleMouseMove(e) {
+            mouseX = (e.clientX - canvasPosition.x) / 30;
+            mouseY = (e.clientY - canvasPosition.y) / 30;
+         };
+         
+         function getBodyAtMouse() {
+            mousePVec = new b2Vec2(mouseX, mouseY);
+            var aabb = new b2AABB();
+            aabb.lowerBound.Set(mouseX - 0.001, mouseY - 0.001);
+            aabb.upperBound.Set(mouseX + 0.001, mouseY + 0.001);
+            
+            // Query the world for overlapping shapes.
+
+            selectedBody = null;
+            world.QueryAABB(getBodyCB, aabb);
+            return selectedBody;
+         }
+
+         function getBodyCB(fixture) {
+            if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
+               if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mousePVec)) {
+                  selectedBody = fixture.GetBody();
+                  return false;
+               }
+            }
+            return true;
+         }
+         
+         //update
+         
+         function update() {
+         
+            if(isMouseDown && (!mouseJoint)) {
+               var body = getBodyAtMouse();
+               if(body) {
+                  var md = new b2MouseJointDef();
+                  md.bodyA = world.GetGroundBody();
+                  md.bodyB = body;
+                  md.target.Set(mouseX, mouseY);
+                  md.collideConnected = true;
+                  md.maxForce = 300.0 * body.GetMass();
+                  mouseJoint = world.CreateJoint(md);
+                  body.SetAwake(true);
+               }
+            }
+            
+            if(mouseJoint) {
+               if(isMouseDown) {
+                  mouseJoint.SetTarget(new b2Vec2(mouseX, mouseY));
+               } else {
+                  world.DestroyJoint(mouseJoint);
+                  mouseJoint = null;
+               }
+            }
+         
+            world.Step(1 / 60, 10, 10);
+            world.DrawDebugData();
+            world.ClearForces();
+         };
+         
+         //helpers
+         
+         //http://js-tut.aardon.de/js-tut/tutorial/position.html
+         function getElementPosition(element) {
+            var elem=element, tagname="", x=0, y=0;
+           
+            while((typeof(elem) == "object") && (typeof(elem.tagName) != "undefined")) {
+               y += elem.offsetTop;
+               x += elem.offsetLeft;
+               tagname = elem.tagName.toUpperCase();
+
+               if(tagname == "BODY")
+                  elem=0;
+
+               if(typeof(elem) == "object") {
+                  if(typeof(elem.offsetParent) == "object")
+                     elem = elem.offsetParent;
+               }
+            }
+
+            return {x: x, y: y};
+         }
+
+
+      };
+   
+   </script>
+   
+      </body>
+</html>
