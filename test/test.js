@@ -15,7 +15,9 @@
          	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
          	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
          	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
-            ,  b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
+            ,  b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef
+            ,  b2WorldManifold = Box2D.Collision.b2WorldManifold
+
             ;
          
          var world = new b2World(
@@ -24,54 +26,93 @@
          );
          
          var fixDef = new b2FixtureDef;
-         fixDef.density = 1.0;
-         fixDef.friction = 0.5;
-         fixDef.restitution = 0.2;
+         // fixDef.density = 1.0;
+         // fixDef.friction = 0.5;
+         // fixDef.restitution = 0.2;
          
          var bodyDef = new b2BodyDef;
-         
+         bodyDef.allowSleep=false;
+
          //create ground
          bodyDef.type = b2Body.b2_staticBody;
+
          fixDef.shape = new b2PolygonShape;
-         fixDef.shape.SetAsBox(20, 2);
+         
+         // fixDef.shape.SetAsBox(20, 2);
 
-         bodyDef.position.Set(10, 480/30);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
+         // // bodyDef.position.Set(10, -1.8);
+         // // var body=world.CreateBody(bodyDef);
+         // // body.CreateFixture(fixDef);
 
-         bodyDef.position.Set(10, -1.8);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
+         // bodyDef.position.Set(20, 480/30+1);
+         // var body=world.CreateBody(bodyDef);
+         // body.CreateFixture(fixDef);
 
-         fixDef.shape.SetAsBox(2, 14);
-         bodyDef.position.Set(-1.8, 13);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-         bodyDef.position.Set(800/30, 13);
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
+         // fixDef.shape.SetAsBox(2, 20);
+
+         // bodyDef.position.Set(-1.8, 240/30);
+         // var body=world.CreateBody(bodyDef);
+         // body.CreateFixture(fixDef);
+
+         // bodyDef.position.Set(800/30+1, 240/30);
+         // var body=world.CreateBody(bodyDef);
+         // body.CreateFixture(fixDef);
          
          
          //create some objects
-         // bodyDef.type = b2Body.b2_dynamicBody;  
-         bodyDef.type = b2Body.b2_staticBody;  
-         fixDef.shape = new b2CircleShape(
-            0.5 //radius
-         );
-         bodyDef.fixedRotation = true;  
+         // fixDef.isSensor=true;
+
+         fixDef.shape = new b2PolygonShape;
+         bodyDef.type = b2Body.b2_dynamicBody;  
 
 
-         for (var i=0;i<80;i++){
-            if (i<12){
-               bodyDef.type = b2Body.b2_dynamicBody;
-               bodyDef.linearDamping = 2;  
-            }else{
-               bodyDef.type = b2Body.b2_staticBody;  
-               bodyDef.linearDamping = 0;  
-            }
-            bodyDef.position.x = Math.random()*(790/30>>0);
-            bodyDef.position.y = Math.random()*(470/30>>0);
-            var ball=world.CreateBody(bodyDef);
-            ball.CreateFixture(fixDef);
-            balls.push(ball);
-         }
+         fixDef.shape.SetAsBox(2, 2);
+         // bodyDef.angularVelocity=0.5;
+         bodyDef.angle=Math.PI/4+0.3;
+         bodyDef.position.x=400/30+1
+         bodyDef.position.y=10;
+         // bodyDef.linearVelocity.y=1;
+         var body=world.CreateBody(bodyDef);
+         body.CreateFixture(fixDef)
+
+
+         fixDef.shape.SetAsBox(3, 2);
+         // bodyDef.angularVelocity=0.5;
+         bodyDef.angle=Math.PI/4;
+         // bodyDef.angle=0;
+         bodyDef.position.x=400/30+1
+         bodyDef.position.y=14
+         var body=world.CreateBody(bodyDef);
+         body.CreateFixture(fixDef)
+         var m=body.m_fixtureList.GetMassData()
+         // console.log(body.m_fixtureList.m_shape.ResetMass())
+         body.m_fixtureList.m_shape.ComputeMass(m,1)
+         console.log(m)
+
+
+
+         // bodyDef.angle=0;
+         // bodyDef.position.x=400/30+1
+         // bodyDef.position.y=6
+         // // bodyDef.linearVelocity.y=2;
+         // var body=world.CreateBody(bodyDef);
+         // body.CreateFixture(fixDef)
+
+         // for (var i=0;i<3;i++){
+         //    if (i<12){
+         //       bodyDef.type = b2Body.b2_dynamicBody;
+         //       bodyDef.linearDamping = 2;  
+         //    }else{
+         //       bodyDef.type = b2Body.b2_staticBody;  
+         //       bodyDef.linearDamping = 0;  
+         //    }
+         //    bodyDef.position.x = Math.random()*(790/30>>0);
+         //    bodyDef.position.y = Math.random()*(470/30>>0);
+         //    var ball=var body=world.CreateBody(bodyDef);
+         //    ball.CreateFixture(fixDef);
+         //    balls.push(ball);
+         // }
 
 
          // bodyDef.type = b2Body.b2_dynamicBody;
@@ -89,7 +130,8 @@
          //    }
          //    bodyDef.position.x = Math.random() * 10;
          //    bodyDef.position.y = Math.random() * 10;
-         //    world.CreateBody(bodyDef).CreateFixture(fixDef);
+         //    var body=world.CreateBody(bodyDef);
+         body.CreateFixture(fixDef);
          // }
          
          //setup debug draw
@@ -97,66 +139,31 @@
          var canvas=document.getElementById("canvas")
          var context=canvas.getContext("2d")
          context.fillStyle="#ff0000";
-   //       var debugDraw = new b2DebugDraw();
-			// debugDraw.SetSprite(context);
-			// debugDraw.SetDrawScale(30.0);
-			// debugDraw.SetFillAlpha(0.5);
-			// debugDraw.SetLineThickness(1.0);
-			// debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-			// world.SetDebugDraw(debugDraw);
+         var debugDraw = new b2DebugDraw();
+			debugDraw.SetSprite(context);
+			debugDraw.SetDrawScale(30.0);
+			debugDraw.SetFillAlpha(0.4);
+			debugDraw.SetLineThickness(0);
+			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit 
+            | b2DebugDraw.e_controllerBit | b2DebugDraw.e_pairBit);
+          // | b2DebugDraw.e_aabbBit
+			world.SetDebugDraw(debugDraw);
          
-         window.setInterval(update, 16);
+         window.setInterval(update, 100);
          
          //mouse
          
          var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
          var canvasPosition = getElementPosition(document.getElementById("canvas"));
          
-         document.addEventListener("mousedown", function(e) {
-            isMouseDown = true;
-            handleMouseMove(e);
-            document.addEventListener("mousemove", handleMouseMove, true);
-         }, true);
-         
-         document.addEventListener("mouseup", function() {
-            document.removeEventListener("mousemove", handleMouseMove, true);
-            isMouseDown = false;
-            mouseX = undefined;
-            mouseY = undefined;
-         }, true);
-         
-         function handleMouseMove(e) {
-            mouseX = (e.clientX - canvasPosition.x) / 30;
-            mouseY = (e.clientY - canvasPosition.y) / 30;
-         };
-         
-         function getBodyAtMouse() {
-            mousePVec = new b2Vec2(mouseX, mouseY);
-            var aabb = new b2AABB();
-            aabb.lowerBound.Set(mouseX - 0.001, mouseY - 0.001);
-            aabb.upperBound.Set(mouseX + 0.001, mouseY + 0.001);
-            
-            // Query the world for overlapping shapes.
 
-            selectedBody = null;
-            world.QueryAABB(getBodyCB, aabb);
-            return selectedBody;
-         }
-
-         function getBodyCB(fixture) {
-            if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
-               if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mousePVec)) {
-                  selectedBody = fixture.GetBody();
-                  return false;
-               }
-            }
-            return true;
-         }
-         
          //update
          
          function update() {
             
+            worldManifoldList.length=0;
+
+
 
             if(isMouseDown && (!mouseJoint)) {
                var body = getBodyAtMouse();
@@ -181,24 +188,43 @@
                }
             }
          
-            world.Step(1 / 60, 10, 10);
+            world.Step(1 / 60, 100, 100);
 
 
             context.clearRect(0,0,canvas.width,canvas.height);
-            balls.forEach(function(b,idx){
+            // balls.forEach(function(b,idx){
 
-               if (idx<12 && !b.IsAwake()){
-                  b.m_linearVelocity.x=randomInt(-99,99);
-                  b.m_linearVelocity.y=randomInt(-99,99);
+            //    if (idx<12 && !b.IsAwake()){
+            //       b.m_linearVelocity.x=randomInt(-99,99);
+            //       b.m_linearVelocity.y=randomInt(-99,99);
 
-                  b.SetAwake(true);
+            //       b.SetAwake(true);
+            //    }
+            //    // var x=b.m_xf.position.x;
+            //    // var y=b.m_xf.position.y;
+            //    // context.fillRect(x*30,y*30,20,20)               
+            // })
+
+            world.DrawDebugData();
+
+          var c=world.m_contactManager.m_world.m_contactList;
+while(c){
+          var _worldManifold=new b2WorldManifold();
+         c.GetWorldManifold(_worldManifold);
+         worldManifoldList.push(_worldManifold);
+      c=c.GetNext()
+}  
+
+
+            context.fillStyle="red"
+            worldManifoldList.forEach(function(wm){
+               var len= wm.m_points.length;
+               for (var i = 0; i < len; ++i) {
+                 var mp = wm.m_points[i];
+
+                 context.fillRect(mp.x*30,mp.y*30,4,4)   
                }
-               var x=b.m_xf.position.x;
-               var y=b.m_xf.position.y;
-               context.fillRect(x*30,y*30,20,20)               
             })
-
-            // world.DrawDebugData();
             world.ClearForces();
          };
          
@@ -227,3 +253,5 @@
 
 
       };
+
+var worldManifoldList=[];
