@@ -1,17 +1,13 @@
 <html>
    <head>
       <title>Box2dWeb Demo</title>
-
-<script  src="../dist/box2d-all-in-one.js"></script>
-
-
    </head>
    <body onload="init();">
       <canvas id="canvas" width="600" height="400" style="background-color:#333333;" ></canvas>
-
-
+   </body>
+   <script type="text/javascript" src="../dist/box2d-all-in-one.js"></script>
    <script type="text/javascript">
-      var world
+      
       function init() {
          var   b2Vec2 = Box2D.Common.Math.b2Vec2
             ,  b2AABB = Box2D.Collision.b2AABB
@@ -27,7 +23,7 @@
             ,  b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
             ;
          
-         world = new b2World(
+         var world = new b2World(
                new b2Vec2(0, 10)    //gravity
             ,  true                 //allow sleep
          );
@@ -159,7 +155,7 @@
          
             world.Step(1 / 60, 10, 10);
             world.DrawDebugData();
-            // world.ClearForces();
+            world.ClearForces();
          };
          
          //helpers
@@ -190,5 +186,5 @@
    
    </script>
    
-      </body>
+   
 </html>
