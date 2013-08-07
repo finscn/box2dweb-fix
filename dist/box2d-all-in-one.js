@@ -15,6 +15,19 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
+
+
+/* 
+ * =================================================================
+ *
+ * Fixed By box2dweb-fix 
+ * 
+ * Project Homepage :  https://github.com/finscn/box2dweb-fix
+ *
+ * =================================================================
+ */
+
+
 var Box2D = {};
 
 (function(a2j, undefined) {
