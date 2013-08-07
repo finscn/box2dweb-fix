@@ -1,6 +1,7 @@
 var fs = require('fs');
 
 var inputDir="./lib/";
+var outputFile="./dist/box2d-all-in-one.js";
 
 var headFile="base.js";
 
@@ -131,7 +132,7 @@ var scopeStart="\n\n;(function(undefined){\n\n";
 var scopeEnd="\n\n}());\n\n";
 var allInOne=headCode + scopeStart + bodyCode + scopeEnd + tailCode;
 
-fs.writeFileSync("box2d-all-in-one.js",allInOne);
+fs.writeFileSync(outputFile,allInOne);
 
 
 
