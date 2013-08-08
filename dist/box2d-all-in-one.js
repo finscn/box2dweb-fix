@@ -971,10 +971,10 @@ b2Collision.ClipSegmentToLine = function(vOut, vIn, normal, offset) {
 }
 b2Collision.EdgeSeparation = function(poly1, xf1, edge1, poly2, xf2) {
     if (edge1 === undefined) edge1 = 0;
-    var count1 = parseInt(poly1.m_vertexCount);
+    var count1 = poly1.m_vertexCount;
     var vertices1 = poly1.m_vertices;
     var normals1 = poly1.m_normals;
-    var count2 = parseInt(poly2.m_vertexCount);
+    var count2 = poly2.m_vertexCount;
     var vertices2 = poly2.m_vertices;
     var tMat;
     var tVec;
@@ -1009,7 +1009,7 @@ b2Collision.EdgeSeparation = function(poly1, xf1, edge1, poly2, xf2) {
     return separation;
 }
 b2Collision.FindMaxSeparation = function(edgeIndex, poly1, xf1, poly2, xf2) {
-    var count1 = parseInt(poly1.m_vertexCount);
+    var count1 = poly1.m_vertexCount;
     var normals1 = poly1.m_normals;
     var tVec;
     var tMat;
@@ -1034,9 +1034,9 @@ b2Collision.FindMaxSeparation = function(edgeIndex, poly1, xf1, poly2, xf2) {
         }
     }
     var s = b2Collision.EdgeSeparation(poly1, xf1, edge, poly2, xf2);
-    var prevEdge = parseInt(edge - 1 >= 0 ? edge - 1 : count1 - 1);
+    var prevEdge = edge - 1 >= 0 ? edge - 1 : count1 - 1;
     var sPrev = b2Collision.EdgeSeparation(poly1, xf1, prevEdge, poly2, xf2);
-    var nextEdge = parseInt(edge + 1 < count1 ? edge + 1 : 0);
+    var nextEdge = edge + 1 < count1 ? edge + 1 : 0;
     var sNext = b2Collision.EdgeSeparation(poly1, xf1, nextEdge, poly2, xf2);
     var bestEdge = 0;
     var bestSeparation = 0;
@@ -1069,9 +1069,9 @@ b2Collision.FindMaxSeparation = function(edgeIndex, poly1, xf1, poly2, xf2) {
 }
 b2Collision.FindIncidentEdge = function(c, poly1, xf1, edge1, poly2, xf2) {
     if (edge1 === undefined) edge1 = 0;
-    var count1 = parseInt(poly1.m_vertexCount);
+    var count1 = poly1.m_vertexCount;
     var normals1 = poly1.m_normals;
-    var count2 = parseInt(poly2.m_vertexCount);
+    var count2 = poly2.m_vertexCount;
     var vertices2 = poly2.m_vertices;
     var normals2 = poly2.m_normals;
     var tMat;
@@ -1095,8 +1095,8 @@ b2Collision.FindIncidentEdge = function(c, poly1, xf1, edge1, poly2, xf2) {
         }
     }
     var tClip;
-    var i1 = parseInt(index);
-    var i2 = parseInt(i1 + 1 < count2 ? i1 + 1 : 0);
+    var i1 = index;
+    var i2 = i1 + 1 < count2 ? i1 + 1 : 0;
     tClip = c[0];
     tVec = vertices2[i1];
     tMat = xf2.R;
@@ -1162,12 +1162,12 @@ b2Collision.CollidePolygons = function(manifold, polyA, xfA, polyB, xfB) {
     }
     var incidentEdge = b2Collision.s_incidentEdge;
     b2Collision.FindIncidentEdge(incidentEdge, poly1, xf1, edge1, poly2, xf2);
-    var count1 = parseInt(poly1.m_vertexCount);
+    var count1 = poly1.m_vertexCount;
     var vertices1 = poly1.m_vertices;
     var local_v11 = vertices1[edge1];
     var local_v12;
     if (edge1 + 1 < count1) {
-        local_v12 = vertices1[parseInt(edge1 + 1)];
+        local_v12 = vertices1[edge1 + 1];
     } else {
         local_v12 = vertices1[0];
     }
@@ -1273,7 +1273,7 @@ b2Collision.CollidePolygonAndCircle = function(manifold, polygon, xf1, circle, x
     var normalIndex = 0;
     var separation = (-Number.MAX_VALUE);
     var radius = polygon.m_radius + circle.m_radius;
-    var vertexCount = parseInt(polygon.m_vertexCount);
+    var vertexCount = polygon.m_vertexCount;
     var vertices = polygon.m_vertices;
     var normals = polygon.m_normals;
     for (var i = 0; i < vertexCount; ++i) {
@@ -1290,8 +1290,8 @@ b2Collision.CollidePolygonAndCircle = function(manifold, polygon, xf1, circle, x
             normalIndex = i;
         }
     }
-    var vertIndex1 = parseInt(normalIndex);
-    var vertIndex2 = parseInt(vertIndex1 + 1 < vertexCount ? vertIndex1 + 1 : 0);
+    var vertIndex1 = normalIndex;
+    var vertIndex2 = vertIndex1 + 1 < vertexCount ? vertIndex1 + 1 : 0;
     var v1 = vertices[vertIndex1];
     var v2 = vertices[vertIndex2];
     if (separation < Number.MIN_VALUE) {
@@ -1914,7 +1914,7 @@ b2DynamicTreeBroadPhase.prototype.BufferMove = function(proxy) {
     this.m_moveBuffer[this.m_moveBuffer.length] = proxy;
 }
 b2DynamicTreeBroadPhase.prototype.UnBufferMove = function(proxy) {
-    var i = parseInt(this.m_moveBuffer.indexOf(proxy));
+    var i = this.m_moveBuffer.indexOf(proxy);
     this.m_moveBuffer.splice(i, 1);
 }
 b2DynamicTreeBroadPhase.prototype.ComparePairs = function(pair1, pair2) {
@@ -2096,7 +2096,7 @@ Box2D.Collision.b2SeparationFunction = b2SeparationFunction;
 b2SeparationFunction.prototype.Initialize = function(cache, proxyA, transformA, proxyB, transformB) {
    this.m_proxyA = proxyA;
    this.m_proxyB = proxyB;
-   var count = parseInt(cache.count);
+   var count = cache.count;
    b2Settings.b2Assert(0 < count && count < 3);
    var localPointA;
    var localPointA1;
@@ -2912,14 +2912,14 @@ b2Shape.TestOverlap = function(shape1, transform1, shape2, transform2) {
 }
 
 Box2D.postDefs.push(function() {
-   Box2D.Collision.Shapes.b2Shape.e_unknownShape = parseInt((-1));
+   Box2D.Collision.Shapes.b2Shape.e_unknownShape = -1;
    Box2D.Collision.Shapes.b2Shape.e_circleShape = 0;
    Box2D.Collision.Shapes.b2Shape.e_polygonShape = 1;
    Box2D.Collision.Shapes.b2Shape.e_edgeShape = 2;
    Box2D.Collision.Shapes.b2Shape.e_shapeTypeCount = 3;
    Box2D.Collision.Shapes.b2Shape.e_hitCollide = 1;
    Box2D.Collision.Shapes.b2Shape.e_missCollide = 0;
-   Box2D.Collision.Shapes.b2Shape.e_startsInsideCollide = parseInt((-1));
+   Box2D.Collision.Shapes.b2Shape.e_startsInsideCollide = -1;
 });
 
 function b2CircleShape(radius) {
@@ -3288,8 +3288,8 @@ b2PolygonShape.prototype.SetAsVector = function(vertices, vertexCount) {
         this.m_vertices[i].SetV(vertices[i]);
     }
     for (i = 0; i < this.m_vertexCount; ++i) {
-        var i1 = parseInt(i);
-        var i2 = parseInt(i + 1 < this.m_vertexCount ? i + 1 : 0);
+        var i1 = i;
+        var i2 = i + 1 < this.m_vertexCount ? i + 1 : 0;
         var edge = b2Math.SubtractVV(this.m_vertices[i2], this.m_vertices[i1]);
         b2Settings.b2Assert(edge.LengthSquared() > Number.MIN_VALUE);
         this.m_normals[i].SetV(b2Math.CrossVF(edge, 1.0));
@@ -3413,7 +3413,7 @@ b2PolygonShape.prototype.RayCast = function(output, input, transform) {
     var p2Y = (tX * tMat.col2.x + tY * tMat.col2.y);
     var dX = p2X - p1X;
     var dY = p2Y - p1Y;
-    var index = parseInt((-1));
+    var index = -1;
     for (var i = 0; i < this.m_vertexCount; ++i) {
         tVec = this.m_vertices[i];
         tX = tVec.x - p1X;
@@ -3486,7 +3486,7 @@ b2PolygonShape.prototype.ComputeMass = function(massData, density) {
     var k_inv3 = 1.0 / 3.0;
     for (var i = 0; i < this.m_vertexCount; ++i) {
         var p2 = this.m_vertices[i];
-        var p3 = i + 1 < this.m_vertexCount ? this.m_vertices[parseInt(i + 1)] : this.m_vertices[0];
+        var p3 = i + 1 < this.m_vertexCount ? this.m_vertices[i + 1] : this.m_vertices[0];
         var e1X = p2.x - p1X;
         var e1Y = p2.y - p1Y;
         var e2X = p3.x - p1X;
@@ -3518,8 +3518,8 @@ b2PolygonShape.prototype.ComputeSubmergedArea = function(normal, offset, xf, c) 
     var offsetL = offset - b2Math.Dot(normal, xf.position);
     var depths = new Vector_a2j_Number();
     var diveCount = 0;
-    var intoIndex = parseInt((-1));
-    var outoIndex = parseInt((-1));
+    var intoIndex = -1;
+    var outoIndex = -1;
     var lastSubmerged = false;
     var i = 0;
     for (i = 0; i < this.m_vertexCount; ++i) {
@@ -3559,8 +3559,8 @@ b2PolygonShape.prototype.ComputeSubmergedArea = function(normal, offset, xf, c) 
             }
             break;
     }
-    var intoIndex2 = parseInt((intoIndex + 1) % this.m_vertexCount);
-    var outoIndex2 = parseInt((outoIndex + 1) % this.m_vertexCount);
+    var intoIndex2 = (intoIndex + 1) % this.m_vertexCount;
+    var outoIndex2 = (outoIndex + 1) % this.m_vertexCount;
     var intoLamdda = (0 - depths[intoIndex]) / (depths[intoIndex2] - depths[intoIndex]);
     var outoLamdda = (0 - depths[outoIndex]) / (depths[outoIndex2] - depths[outoIndex]);
     var intoVec = new b2Vec2(this.m_vertices[intoIndex].x * (1 - intoLamdda) + this.m_vertices[intoIndex2].x * intoLamdda, this.m_vertices[intoIndex].y * (1 - intoLamdda) + this.m_vertices[intoIndex2].y * intoLamdda);
@@ -3623,7 +3623,7 @@ b2PolygonShape.prototype.Validate = function() {
 
 b2PolygonShape.prototype.Reserve = function(count) {
     if (count === undefined) count = 0;
-    for (var i = parseInt(this.m_vertices.length); i < count; i++) {
+    for (var i = this.m_vertices.length; i < count; i++) {
         this.m_vertices[i] = new b2Vec2();
         this.m_normals[i] = new b2Vec2();
     }
@@ -3637,7 +3637,7 @@ b2PolygonShape.ComputeCentroid = function(vs, count) {
     var inv3 = 1.0 / 3.0;
     for (var i = 0; i < count; ++i) {
         var p2 = vs[i];
-        var p3 = i + 1 < count ? vs[parseInt(i + 1)] : vs[0];
+        var p3 = i + 1 < count ? vs[i + 1] : vs[0];
         var e1X = p2.x - p1X;
         var e1Y = p2.y - p1Y;
         var e2X = p3.x - p1X;
@@ -3663,7 +3663,7 @@ b2PolygonShape.ComputeOBB = function(obb, vs, count) {
     p[count] = p[0];
     var minArea = Number.MAX_VALUE;
     for (i = 1; i <= count; ++i) {
-        var root = p[parseInt(i - 1)];
+        var root = p[i - 1];
         var uxX = p[i].x - root.x;
         var uxY = p[i].y - root.y;
         var length = Math.sqrt(uxX * uxX + uxY * uxY);
@@ -5653,7 +5653,7 @@ b2World.prototype.Solve = function(step) {
     for (var j = this.m_jointList; j; j = j.m_next) {
         j.m_islandFlag = false;
     }
-    var stackSize = parseInt(this.m_bodyCount);
+    var stackSize = this.m_bodyCount;
     var stack = this.s_stack;
     for (var seed = this.m_bodyList; seed; seed = seed.m_next) {
         if (seed.m_flags & b2Body.e_islandFlag) {
@@ -5964,7 +5964,7 @@ b2World.prototype.DrawShape = function(shape, xf, color) {
             {
                 var i = 0;
                 var poly = ((shape instanceof b2PolygonShape ? shape : null));
-                var vertexCount = parseInt(poly.GetVertexCount());
+                var vertexCount = poly.GetVertexCount();
                 var localVertices = poly.GetVertices();
                 var vertices = new Vector(vertexCount);
                 for (i = 0; i < vertexCount; ++i) {
@@ -6247,8 +6247,8 @@ b2ContactFactory.prototype.InitializeRegisters = function() {
     this.AddType(b2PolyAndEdgeContact.Create, b2PolyAndEdgeContact.Destroy, b2Shape.e_polygonShape, b2Shape.e_edgeShape);
 }
 b2ContactFactory.prototype.Create = function(fixtureA, fixtureB) {
-    var type1 = parseInt(fixtureA.GetType());
-    var type2 = parseInt(fixtureB.GetType());
+    var type1 = fixtureA.GetType();
+    var type2 = fixtureB.GetType();
     var reg = this.m_registers[type1][type2];
     var c;
     if (reg.pool) {
@@ -6278,8 +6278,8 @@ b2ContactFactory.prototype.Destroy = function(contact) {
         contact.m_fixtureA.m_body.SetAwake(true);
         contact.m_fixtureB.m_body.SetAwake(true);
     }
-    var type1 = parseInt(contact.m_fixtureA.GetType());
-    var type2 = parseInt(contact.m_fixtureB.GetType());
+    var type1 = contact.m_fixtureA.GetType();
+    var type2 = contact.m_fixtureB.GetType();
     var reg = this.m_registers[type1][type2];
     if (true) {
         reg.poolCount++;
@@ -6524,7 +6524,7 @@ b2ContactSolver.prototype.SolveVelocityConstraints = function() {
             velAngB += invIB * (ccp.rB.x * PY - ccp.rB.y * PX);
             ccp.tangentImpulse = newImpulse;
         }
-        var tCount = parseInt(c.pointCount);
+        var tCount = c.pointCount;
         if (c.pointCount == 1) {
             ccp = c.points[0];
             dvX = velB.x + ((-velAngB * ccp.rB.y)) - velA.x - ((-velAngA * ccp.rA.y));
@@ -7715,8 +7715,8 @@ function b2GearJoint(def) {
     this.m_J = new b2Jacobian();
 
     // this.__super.constructor.call(this, def);
-    var type1 = parseInt(def.joint1.m_type);
-    var type2 = parseInt(def.joint2.m_type);
+    var type1 = def.joint1.m_type;
+    var type2 = def.joint2.m_type;
     this.m_revolute1 = null;
     this.m_prismatic1 = null;
     this.m_revolute2 = null;
